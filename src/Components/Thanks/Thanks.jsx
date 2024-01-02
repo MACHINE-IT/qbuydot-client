@@ -20,7 +20,7 @@ const Thanks = ({ history }) => {
 
             {/* Display order details */}
             <div className="thanks-container">
-                <h1 style={{ fontWeight: "600" }}>It&apos;s ordered!</h1>
+                <h1 className="thanks-order-confirm-text" style={{ fontWeight: "600" }}>It&apos;s ordered!</h1>
 
                 <div className="green-text thanks-line">
                     You will receive an invoice for your order shortly.
@@ -28,7 +28,7 @@ const Thanks = ({ history }) => {
                     Your order will arrive in 7 business days.
                 </div>
 
-                <div className="thanks-line">
+                <div className="thanks-order-confirm-text thanks-line">
                     Wallet balance: <br></br>₹{localStorage.getItem("balance")}{" "}
                     available
                 </div>

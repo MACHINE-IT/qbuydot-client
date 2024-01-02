@@ -2,6 +2,7 @@
 import { Button } from "antd";
 import "./Header.css";
 import { useNavigate } from "react-router-dom";
+import ThemeBtn from '../ThemeBtn/themebtn';
 
 const Header = ({ children }) => {
     const navigate = useNavigate();
@@ -55,6 +56,7 @@ const Header = ({ children }) => {
                         <Button type="primary" onClick={logout}>
                             Logout
                         </Button>
+                        <ThemeBtn />
                     </>
                 ) : (
                     <>
@@ -70,9 +72,11 @@ const Header = ({ children }) => {
                             <Button type="primary" onClick={register}>
                                 Register
                             </Button>
+                            <ThemeBtn />
                         </div>
                     </>
                 )}
+
             </div>
         </div>
     );

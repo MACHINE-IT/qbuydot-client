@@ -1,5 +1,13 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap");
 
+/* Import Montserrat font */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
 html,
 body {
   margin: 0;
@@ -10,6 +18,29 @@ body {
 .App {
   font-family: "Montserrat";
   height: 100vh;
+}
+
+.dark {
+  color: white;
+  background-color: #151212;
+  border-color: #00a278;
+}
+
+.dark .thanks-order-confirm-text {
+  color: #1677ff;
+}
+
+
+
+.light {
+  color: #151212;
+  background-color: white;
+}
+
+.ant-btn-primary {
+  color: #fff;
+  background-color: #1677ff !important;
+  box-shadow: 0 2px 0 rgba(5, 145, 255, 0.1);
 }
 
 .input-field {

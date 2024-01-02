@@ -253,7 +253,7 @@ const Checkout = () => {
                     {/* Display checkout instructions */}
                     <Col xs={{ span: 24, order: 2 }} md={{ span: 18, order: 1 }}>
                         <div className="checkout-shipping">
-                            <h1 style={{ marginBottom: "-10px" }}>Shipping</h1>
+                            <h1 style={{ marginBottom: "-5px" }}>Shipping</h1>
 
                             <hr></hr>
                             <br></br>
@@ -307,14 +307,14 @@ const Checkout = () => {
 
                             {/* Display the "Pricing" section */}
                             <div>
-                                <h1 style={{ marginBottom: "-10px" }}>Pricing</h1>
+                                <h1 style={{ marginBottom: "-5px" }}>Pricing</h1>
 
                                 <hr></hr>
 
                                 <h2>Payment Method</h2>
 
                                 <Radio.Group value={1}>
-                                    <Radio style={radioStyle} value={1}>
+                                    <Radio className="availableBalance" style={radioStyle} value={1}>
                                         Wallet
                                         <strong> (₹{balance} available)</strong>
                                     </Radio>
