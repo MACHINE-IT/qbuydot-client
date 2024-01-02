@@ -8,6 +8,7 @@ import Product from "../Product/Product";
 import { Row, Col } from "antd";
 import Footer from "../Footer/Footer";
 import "./Search.css";
+import "../Cart/Cart.css"
 
 /**
  * @typedef {Object} Product
@@ -34,7 +35,7 @@ import "./Search.css";
 
 const Search = () => {
     const navigate = useNavigate();
-    const cartRef = useRef();
+    const cartRef = useRef(null);
 
     const [loading, setLoading] = useState(false);
     const [loggedIn, setLoggedIn] = useState(false);
@@ -204,9 +205,11 @@ const Search = () => {
             <Col xs={24} sm={12} xl={6} key={product._id}>
                 <Product
                     product={product}
-                    addToCart={(product) => {
+                    addToCart={() => {
                         if (loggedIn) {
-                            cartRef && cartRef.current.postToCart(product._id, 1, true);
+                            console.log('cartRef: ', cartRef);
+                            console.log('cartRef.current: ', cartRef.current)
+                            cartRef && cartRef.current && cartRef.current.postToCart(product._id, 1);
                         } else {
                             navigate("/login");
                         }
@@ -256,6 +259,7 @@ const Search = () => {
                             <Cart
                                 ref={cartRef}
                                 products={products}
+                                history={history}
                                 token={localStorage.getItem("token")}
                             />
                         </div>

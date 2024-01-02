@@ -6,8 +6,9 @@ import { useNavigate } from "react-router-dom";
 const Header = ({ children }) => {
     const navigate = useNavigate();
 
-    const root = () => {
-        navigate("/");
+
+    const home = () => {
+        navigate("/products");
     };
 
     const explore = () => {
@@ -31,7 +32,7 @@ const Header = ({ children }) => {
     return (
         <div className="header">
             {/* Shows Qkart title image */}
-            <div className="header-title" onClick={root}>
+            <div className="header-title" onClick={home}>
                 <img src="icon.svg" alt="QKart-icon"></img>
             </div>
 

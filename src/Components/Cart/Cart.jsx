@@ -1,10 +1,12 @@
 /* eslint-disable react/prop-types */
 import { ShoppingCartOutlined } from "@ant-design/icons";
 import { Button, Card, message, Spin, InputNumber } from "antd";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useImperativeHandle, forwardRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { config } from "../../App";
 import "./Cart.css";
+// import { addToCart, removeFromCart, incrementQuantity, decrementQuantity } from "../../redux/actions";
+// import { useSelector, useDispatch } from "react-redux";
 
 /**
  * @typedef {Object} Product
@@ -23,10 +25,29 @@ import "./Cart.css";
  * @property {Product} product - Corresponding product object for that cart item
  */
 
-const Cart = ({ products, token, checkout }) => {
+const Cart = forwardRef(({ products, token, checkout }, ref) => {
     const navigate = useNavigate();
     const [items, setItems] = useState([]);
     const [loading, setLoading] = useState(false);
+
+    // const dispatch = useDispatch();
+    // const cart = useSelector((state) => state.cart);
+
+    // const handleAddToCart = (product) => {
+    //     dispatch(addToCart(product));
+    // }
+
+    // const handleRemoveFromCart = (productId) => {
+    //     dispatch(removeFromCart(productId));
+    // };
+
+    // const handleIncrementQuantity = (productId) => {
+    //     dispatch(incrementQuantity(productId));
+    // };
+
+    // const handleDecrementQuantity = (productId) => {
+    //     dispatch(decrementQuantity(productId));
+    // };
 
     /**
  * Check the response of the API call to be valid and handle any failures along the way
@@ -127,6 +148,7 @@ const Cart = ({ products, token, checkout }) => {
  */
 
     const postToCart = async (productId, qty) => {
+        console.log('postToCart call hua bhai!')
         let response = {};
         let errored = false;
         let statusCode;
@@ -138,7 +160,7 @@ const Cart = ({ products, token, checkout }) => {
                 await fetch(`${config.endpoint}/cart`, {
                     method: "POST",
                     headers: {
-                        Authorization: `Bearer ${this.props.token}`,
+                        Authorization: `Bearer ${token}`,
                         "Content-Type": "application/json",
                     },
                     body: JSON.stringify({
@@ -157,6 +179,12 @@ const Cart = ({ products, token, checkout }) => {
             await refreshCart();
         }
     };
+
+    // Assigning postToCart to the ref
+    useImperativeHandle(ref, () => ({
+        postToCart,
+        calculateTotal,
+    }));
 
     const putToCart = async (productId, qty) => {
         let response = {};
@@ -276,6 +304,7 @@ const Cart = ({ products, token, checkout }) => {
                 <>
                     {/* Display a card view for each product in the cart */}
                     {items.map((item) => (
+
                         <Card className="cart-item" key={item.productId}>
                             {/* Display product image */}
                             <img
@@ -364,6 +393,7 @@ const Cart = ({ products, token, checkout }) => {
             )}
         </div>
     );
-};
+});
 
+Cart.displayName = 'Cart';
 export default Cart;

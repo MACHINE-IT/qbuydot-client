@@ -2,6 +2,8 @@
 import { PlusCircleOutlined } from "@ant-design/icons";
 import { Button, Card, Rate } from "antd";
 import "./Product.css";
+// import { useDispatch, useSelector } from "react-redux";
+// import { addToCart } from "../../redux/actions";
 
 /**
  * @typedef {Object} Product
@@ -27,6 +29,12 @@ import "./Product.css";
  *    HTML and JSX to be rendered
  */
 export default function Product({ product, addToCart }) {
+    // const dispatch = useDispatch();
+    // const cart = useSelector((state) => state.cart);
+
+    // const handleAddToCart = (product) => {
+    //     dispatch(addToCart(product))
+    // }
     return (
         // Use Antd Card component to create a card-like view for individual products
         <Card className="product" hoverable>
@@ -60,7 +68,7 @@ export default function Product({ product, addToCart }) {
                         shape="round"
                         type="primary"
                         icon={<PlusCircleOutlined />}
-                        onClick={addToCart}
+                        onClick={() => addToCart(product)}
                     >
                         Add to Cart
                     </Button>
