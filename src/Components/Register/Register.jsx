@@ -8,6 +8,7 @@ import Header from "../Header/Header";
 
 const Register = () => {
     const navigate = useNavigate();
+    const themeMode = localStorage.getItem("themeMode") || "light";
 
     const [loading, setLoading] = useState(false);
     const [username, setUsername] = useState("");
@@ -172,7 +173,7 @@ const Register = () => {
             <Header history={history} />
 
             {/* Display Register fields */}
-            <div className="flex-container">
+            <div className={`flex-container ${themeMode}`}>
                 <div className="register-container container">
                     <h1>Register your account</h1>
 

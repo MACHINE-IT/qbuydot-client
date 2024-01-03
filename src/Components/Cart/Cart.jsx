@@ -29,7 +29,7 @@ const Cart = forwardRef(({ products, token, checkout }, ref) => {
     const navigate = useNavigate();
     const [items, setItems] = useState([]);
     const [loading, setLoading] = useState(false);
-
+    const themeMode = localStorage.getItem("themeMode") || "light";
     // const dispatch = useDispatch();
     // const cart = useSelector((state) => state.cart);
 
@@ -298,7 +298,7 @@ const Cart = forwardRef(({ products, token, checkout }, ref) => {
  */
 
     return (
-        <div className={["cart", checkout ? "checkout" : ""].join(" ")}>
+        <div className={["cart", themeMode, checkout ? "checkout" : ""].join(" ")}>
             {/* Display cart items or a text banner if cart is empty */}
             {items.length ? (
                 <>
@@ -313,11 +313,11 @@ const Cart = forwardRef(({ products, token, checkout }, ref) => {
                                 src={item.product.image}
                             />
                             {/* Display product details*/}
-                            <div className="cart-parent">
+                            <div className={`cart-parent ${themeMode}`}>
                                 {/* Display product name, category and total cost */}
-                                <div className="cart-item-info">
+                                <div className={`cart-item-info`}>
                                     <div>
-                                        <div className="cart-item-name">{item.product.name}</div>
+                                        <div className='cart-item-name'>{item.product.name}</div>
                                         <div className="cart-item-category">
                                             {item.product.category}
                                         </div>
@@ -332,7 +332,7 @@ const Cart = forwardRef(({ products, token, checkout }, ref) => {
                         </Card>
                     ))}
                     {/* Display cart summary */}
-                    <div className="total">
+                    <div className={`total ${themeMode}`}>
                         <h2>Total</h2>
                         {/* Display net quantity of items in the cart */}
                         <div className="total-item">

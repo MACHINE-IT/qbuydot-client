@@ -13,7 +13,7 @@ import Search from "./Components/Search/Search";
 import Thanks from "./Components/Thanks/Thanks";
 import { ThemeProvider } from './contexts/theme'
 import { useEffect } from 'react'
-
+import useApplyTheme from './Components/useApplyTheme/useApplyTheme'
 // import ipConfig from "./ipConfig.json";
 
 export const config = {
@@ -28,7 +28,12 @@ const App = () => {
     window && window.scrollTo(0, 0);
   }, [location.pathname]);
 
-  const [themeMode, setThemeMode] = useState('light')
+  // Initialize theme mode from localStorage or default to 'light'
+  const [themeMode, setThemeMode] = useState(() => {
+    return localStorage.getItem("themeMode") || "light";
+  });
+
+  // const [themeMode, setThemeMode] = useState('light')
 
   const darkTheme = () => {
     setThemeMode('dark')
@@ -41,6 +46,7 @@ const App = () => {
   useEffect(() => {
     // document.querySelector('html').classList.remove('dark', "light");
     // document.querySelector('html').classList.add(themeMode);
+    localStorage.setItem("themeMode", themeMode);
 
     document.querySelectorAll('html, .header, .product-info, .search-cart, .cart, .item-cart-info, .cart-parent, .availableBalance, .total').forEach(element => {
       element.classList.remove('dark', 'light');

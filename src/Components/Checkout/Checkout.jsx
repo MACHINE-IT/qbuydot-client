@@ -17,6 +17,7 @@ const Checkout = () => {
     const [newAddress, setNewAddress] = useState("");
     const [balance, setBalance] = useState(0);
     const [loading, setLoading] = useState(false);
+    const themeMode = localStorage.getItem("themeMode") || "light";
 
     const validateGetProductsResponse = (errored, response) => {
         if (errored || (!response.length && !response.message)) {
@@ -248,7 +249,7 @@ const Checkout = () => {
             <Header history={history} />
 
             {/* Display Checkout page content */}
-            <div className="checkout-container">
+            <div className={`checkout-container`}>
                 <Row>
                     {/* Display checkout instructions */}
                     <Col xs={{ span: 24, order: 2 }} md={{ span: 18, order: 1 }}>
@@ -314,7 +315,7 @@ const Checkout = () => {
                                 <h2>Payment Method</h2>
 
                                 <Radio.Group value={1}>
-                                    <Radio className="availableBalance" style={radioStyle} value={1}>
+                                    <Radio className={`availableBalance ${themeMode}`} style={radioStyle} value={1}>
                                         Wallet
                                         <strong> (₹{balance} available)</strong>
                                     </Radio>

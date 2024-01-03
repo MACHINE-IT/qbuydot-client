@@ -11,6 +11,7 @@ const Login = ({ history }) => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
+    const themeMode = localStorage.getItem("themeMode") || "light";
 
     /**
  * Validate the input values so that any bad or illegal values are not passed to the backend.
@@ -172,7 +173,7 @@ const Login = ({ history }) => {
             <Header history={history} />
 
             {/* Display Login fields */}
-            <div className="flex-container">
+            <div className={`flex-container ${themeMode}`}>
                 <div className="login-container container">
                     <h1>Login to QBuyDot</h1>
 
