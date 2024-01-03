@@ -38,7 +38,8 @@ const App = () => {
   }
 
   useEffect(() => {
-    localStorage.setItem("themeMode", themeMode);
+    // document.querySelector('html').classList.remove('dark', "light");
+    // document.querySelector('html').classList.add(themeMode);
 
     document.querySelectorAll('html, .header-normal, .header-drawer, .product-info, .search-cart, .cart, .item-cart-info, .cart-parent, .availableBalance, .total').forEach(element => {
       element.classList.remove('dark', 'light');
