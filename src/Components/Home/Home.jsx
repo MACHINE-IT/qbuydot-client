@@ -1,9 +1,11 @@
 import { Button } from "antd";
 import { Link } from "react-router-dom";
 import "./Home.css";
+import useTheme from "../../contexts/theme";
 
 const Home = () => {
-    const themeMode = localStorage.getItem("themeMode") || "light";
+    // const themeMode = localStorage.getItem("themeMode") || "light";
+    const { themeMode } = useTheme();
     return (
         <>
             {/* Display "Home" page content */}

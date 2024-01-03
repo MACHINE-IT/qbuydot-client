@@ -5,6 +5,7 @@ import { useState, useEffect, useImperativeHandle, forwardRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { config } from "../../App";
 import "./Cart.css";
+import useTheme from "../../contexts/theme";
 // import { addToCart, removeFromCart, incrementQuantity, decrementQuantity } from "../../redux/actions";
 // import { useSelector, useDispatch } from "react-redux";
 
@@ -29,25 +30,7 @@ const Cart = forwardRef(({ products, token, checkout }, ref) => {
     const navigate = useNavigate();
     const [items, setItems] = useState([]);
     const [loading, setLoading] = useState(false);
-    const themeMode = localStorage.getItem("themeMode") || "light";
-    // const dispatch = useDispatch();
-    // const cart = useSelector((state) => state.cart);
-
-    // const handleAddToCart = (product) => {
-    //     dispatch(addToCart(product));
-    // }
-
-    // const handleRemoveFromCart = (productId) => {
-    //     dispatch(removeFromCart(productId));
-    // };
-
-    // const handleIncrementQuantity = (productId) => {
-    //     dispatch(incrementQuantity(productId));
-    // };
-
-    // const handleDecrementQuantity = (productId) => {
-    //     dispatch(decrementQuantity(productId));
-    // };
+    const { themeMode } = useTheme();
 
     /**
  * Check the response of the API call to be valid and handle any failures along the way

@@ -3,12 +3,11 @@ import { Button } from "antd";
 import "./Header.css";
 import { useNavigate } from "react-router-dom";
 import ThemeBtn from '../ThemeBtn/themebtn';
-import useApplyTheme from "../useApplyTheme/useApplyTheme";
+import useTheme from "../../contexts/theme";
 
 const Header = ({ children }) => {
     const navigate = useNavigate();
-    // Initialize theme mode from localStorage or default to 'light'
-    const themeMode = localStorage.getItem("themeMode") || "light";
+    const { themeMode } = useTheme();
 
 
     const home = () => {
@@ -32,7 +31,7 @@ const Header = ({ children }) => {
             if (key !== 'themeMode') {
                 localStorage.removeItem(key);
             }
-        };
+        }
         navigate("/");
     };
 
@@ -40,7 +39,7 @@ const Header = ({ children }) => {
         <div className={`header ${themeMode}`} >
             {/* Shows QBuyDot title image */}
             <div className="header-title" onClick={home} >
-                <img src="QBuyDotLogo-new.svg" alt="QbuyDot-icon"></img>
+                <img src={themeMode === 'dark' ? 'QBuyDotLogo-newDarkMode.svg' : 'QBuyDotLogo-newLightMode.svg'} alt="QbuyDot-icon"></img>
             </div>
 
             {children}

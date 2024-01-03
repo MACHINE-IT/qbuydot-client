@@ -7,6 +7,7 @@ import "./Checkout.css";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
 import { useNavigate } from "react-router-dom";
+import useTheme from "../../contexts/theme";
 
 const Checkout = () => {
     const cartRef = useRef(null);
@@ -17,7 +18,7 @@ const Checkout = () => {
     const [newAddress, setNewAddress] = useState("");
     const [balance, setBalance] = useState(0);
     const [loading, setLoading] = useState(false);
-    const themeMode = localStorage.getItem("themeMode") || "light";
+    const { themeMode } = useTheme();
 
     const validateGetProductsResponse = (errored, response) => {
         if (errored || (!response.length && !response.message)) {

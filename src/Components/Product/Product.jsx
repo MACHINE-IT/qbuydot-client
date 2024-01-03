@@ -2,6 +2,7 @@
 import { PlusCircleOutlined } from "@ant-design/icons";
 import { Button, Card, Rate } from "antd";
 import "./Product.css";
+import useTheme from "../../contexts/theme";
 // import { useDispatch, useSelector } from "react-redux";
 // import { addToCart } from "../../redux/actions";
 
@@ -29,7 +30,8 @@ import "./Product.css";
  *    HTML and JSX to be rendered
  */
 export default function Product({ product, addToCart }) {
-    const themeMode = localStorage.getItem("themeMode") || "light";
+    const { themeMode } = useTheme();
+    // const themeMode = localStorage.getItem("themeMode") || "light";
     // const dispatch = useDispatch();
     // const cart = useSelector((state) => state.cart);
 
