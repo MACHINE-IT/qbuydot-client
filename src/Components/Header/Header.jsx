@@ -3,9 +3,11 @@ import { Button } from "antd";
 import "./Header.css";
 import { useNavigate } from "react-router-dom";
 import ThemeBtn from '../ThemeBtn/themebtn';
+import useTheme from "../../contexts/theme";
 
 const Header = ({ children }) => {
     const navigate = useNavigate();
+    const { themeMode } = useTheme();
 
 
     const home = () => {
@@ -25,16 +27,19 @@ const Header = ({ children }) => {
     };
 
     const logout = () => {
-        localStorage.removeItem("username");
-        localStorage.removeItem("token");
+        for (const key in localStorage) {
+            if (key !== 'themeMode') {
+                localStorage.removeItem(key);
+            }
+        }
         navigate("/");
     };
 
     return (
-        <div className="header">
+        <div className={`header ${themeMode}`} >
             {/* Shows QBuyDot title image */}
-            <div className="header-title" onClick={home}>
-                <img src="QBuyDotLogo.svg" alt="QbuyDot-icon"></img>
+            <div className="header-title" onClick={home} >
+                <img src={themeMode === 'dark' ? 'QBuyDotLogo-newDarkMode.svg' : 'QBuyDotLogo-newLightMode.svg'} alt="QbuyDot-icon"></img>
             </div>
 
             {children}
@@ -78,7 +83,7 @@ const Header = ({ children }) => {
                 )}
 
             </div>
-        </div>
+        </div >
     );
 };
 

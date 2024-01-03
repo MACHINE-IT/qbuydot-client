@@ -9,6 +9,7 @@ import { Row, Col } from "antd";
 import Footer from "../Footer/Footer";
 import "./Search.css";
 import "../Cart/Cart.css"
+import useTheme from "../../contexts/theme";
 
 /**
  * @typedef {Object} Product
@@ -36,7 +37,8 @@ import "../Cart/Cart.css"
 const Search = () => {
     const navigate = useNavigate();
     const cartRef = useRef(null);
-
+    const { themeMode } = useTheme();
+    // const themeMode = localStorage.getItem("themeMode") || "light";
     const [loading, setLoading] = useState(false);
     const [loggedIn, setLoggedIn] = useState(false);
     const [filteredProducts, setFilteredProducts] = useState([]);
@@ -254,7 +256,7 @@ const Search = () => {
 
                 {/* Display cart */}
                 {loggedIn && products.length && (
-                    <Col xs={{ span: 24 }} md={{ span: 6 }} className="search-cart">
+                    <Col xs={{ span: 24 }} md={{ span: 6 }} className={`search-cart ${themeMode}`}>
                         <div>
                             <Cart
                                 ref={cartRef}

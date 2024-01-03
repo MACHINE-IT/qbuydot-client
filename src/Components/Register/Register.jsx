@@ -5,9 +5,12 @@ import { useNavigate } from "react-router-dom";
 import { config } from "../../App";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
+import useTheme from "../../contexts/theme";
 
 const Register = () => {
     const navigate = useNavigate();
+    const { themeMode } = useTheme();
+    // const themeMode = localStorage.getItem("themeMode") || "light";
 
     const [loading, setLoading] = useState(false);
     const [username, setUsername] = useState("");
@@ -172,7 +175,7 @@ const Register = () => {
             <Header history={history} />
 
             {/* Display Register fields */}
-            <div className="flex-container">
+            <div className={`flex-container`}>
                 <div className="register-container container">
                     <h1>Register your account</h1>
 

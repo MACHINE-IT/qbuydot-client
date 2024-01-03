@@ -1,12 +1,15 @@
 import { Button } from "antd";
 import { Link } from "react-router-dom";
 import "./Home.css";
+import useTheme from "../../contexts/theme";
 
 const Home = () => {
+    // const themeMode = localStorage.getItem("themeMode") || "light";
+    const { themeMode } = useTheme();
     return (
         <>
             {/* Display "Home" page content */}
-            <div className="flex-container">
+            <div className={`flex-container ${themeMode}`}>
                 <div className="home-container container">
                     <h1 className="home-welcome-text">
                         Welcome to home
@@ -15,16 +18,6 @@ const Home = () => {
                     <p>Please select an option from below</p>
 
                     <div className="home-buttons">
-                        <Link to="/register">
-                            <Button
-                                id="register-button"
-                                className="btn-block"
-                                type="primary"
-                                block={true}
-                            >
-                                Register
-                            </Button>
-                        </Link>
 
                         <Link to="/login">
                             <Button
@@ -34,6 +27,17 @@ const Home = () => {
                                 block={true}
                             >
                                 Login
+                            </Button>
+                        </Link>
+
+                        <Link to="/register">
+                            <Button
+                                id="register-button"
+                                className="btn-block"
+                                type="primary"
+                                block={true}
+                            >
+                                Register
                             </Button>
                         </Link>
 

@@ -4,10 +4,26 @@ import {
     REMOVE_FROM_CART,
     INCREMENT_QUANTITY,
     DECREMENT_QUANTITY,
+    SET_THEME_MODE,
 } from '../redux/actions';
 
+
 const initialState = {
-    cartItems: []
+    cartItems: [],
+
+};
+
+// const initialTheme = {
+//     theme: localStorage.getItem("themeMode") || "light",
+// }
+
+const themeReducer = (state = localStorage.getItem("themeMode") || "light", action) => {
+    switch (action.type) {
+        case SET_THEME_MODE:
+            return action.payload;
+        default:
+            return state;
+    }
 };
 
 const cartReducer = (state = initialState, action) => {
@@ -51,6 +67,7 @@ const cartReducer = (state = initialState, action) => {
 }
 
 const rootReducer = combineReducers({
+    darkTheme: themeReducer,
     cart: cartReducer,
 });
 

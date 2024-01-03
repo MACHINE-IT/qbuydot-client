@@ -1,10 +1,6 @@
 import "antd/dist/reset.css";
 import { useLayoutEffect, useState } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
-// import { Provider } from "react-redux";
-// import { PersistGate } from 'redux-persist/integration/react';
-// import { store, persistor } from './redux/store';
-
 import Checkout from "./Components/Checkout/Checkout";
 import Home from "./Components/Home/Home";
 import Login from "./Components/Login/Login";
@@ -13,8 +9,6 @@ import Search from "./Components/Search/Search";
 import Thanks from "./Components/Thanks/Thanks";
 import { ThemeProvider } from './contexts/theme'
 import { useEffect } from 'react'
-
-// import ipConfig from "./ipConfig.json";
 
 export const config = {
   endpoint: `https://qbuydot-backend.onrender.com/v1`,
@@ -28,7 +22,12 @@ const App = () => {
     window && window.scrollTo(0, 0);
   }, [location.pathname]);
 
-  const [themeMode, setThemeMode] = useState('light')
+  // Initializing theme mode from localStorage or default to 'light'
+  const [themeMode, setThemeMode] = useState(() => {
+    return localStorage.getItem("themeMode") || "light";
+  });
+
+  // const [themeMode, setThemeMode] = useState('light')
 
   const darkTheme = () => {
     setThemeMode('dark')
@@ -39,8 +38,7 @@ const App = () => {
   }
 
   useEffect(() => {
-    // document.querySelector('html').classList.remove('dark', "light");
-    // document.querySelector('html').classList.add(themeMode);
+    localStorage.setItem("themeMode", themeMode);
 
     document.querySelectorAll('html, .header, .product-info, .search-cart, .cart, .item-cart-info, .cart-parent, .availableBalance, .total').forEach(element => {
       element.classList.remove('dark', 'light');
@@ -50,8 +48,6 @@ const App = () => {
   }, [themeMode])
 
   return (
-    // <Provider store={store}>
-    //   <PersistGate loading={null} persistor={persistor}>
     <ThemeProvider value={{ themeMode, darkTheme, lightTheme }}>
       <div className="App">
         <Routes>
@@ -64,8 +60,6 @@ const App = () => {
         </Routes>
       </div>
     </ThemeProvider>
-    //   </PersistGate>
-    // </Provider>
   );
 };
 

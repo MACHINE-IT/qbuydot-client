@@ -5,12 +5,15 @@ import { useNavigate } from "react-router-dom";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 import { config } from "../../App";
+import useTheme from "../../contexts/theme";
 
 const Login = ({ history }) => {
     const [loading, setLoading] = useState(false);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
+    // const themeMode = localStorage.getItem("themeMode") || "light";
+    const { themeMode } = useTheme();
 
     /**
  * Validate the input values so that any bad or illegal values are not passed to the backend.
@@ -172,7 +175,7 @@ const Login = ({ history }) => {
             <Header history={history} />
 
             {/* Display Login fields */}
-            <div className="flex-container">
+            <div className={`flex-container`}>
                 <div className="login-container container">
                     <h1>Login to QBuyDot</h1>
 
