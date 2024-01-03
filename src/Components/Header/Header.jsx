@@ -32,9 +32,9 @@ const Header = ({ children }) => {
 
     return (
         <div className="header">
-            {/* Shows Qkart title image */}
+            {/* Shows QBuyDot title image */}
             <div className="header-title" onClick={home}>
-                <img src="icon.svg" alt="QKart-icon"></img>
+                <img src="QBuyDotLogo.svg" alt="QbuyDot-icon"></img>
             </div>
 
             {children}

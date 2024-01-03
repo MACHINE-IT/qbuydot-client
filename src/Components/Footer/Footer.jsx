@@ -3,7 +3,7 @@ import "./Footer.css";
 const Footer = () => {
     return (
         <footer className="footer">
-            <img className="footer-img" src="icon-white.png" alt="QKart"></img>
+            <img className="footer-img" src="QBuyDotLogo-White.svg" alt="QBuyDot"></img>
         </footer>
     );
 }

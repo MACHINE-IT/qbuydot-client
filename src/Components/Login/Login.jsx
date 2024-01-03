@@ -174,7 +174,7 @@ const Login = ({ history }) => {
             {/* Display Login fields */}
             <div className="flex-container">
                 <div className="login-container container">
-                    <h1>Login to QKart</h1>
+                    <h1>Login to QBuyDot</h1>
 
                     <Input
                         className="input-field"
