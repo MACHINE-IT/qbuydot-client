@@ -38,8 +38,6 @@ const App = () => {
   }
 
   useEffect(() => {
-    // document.querySelector('html').classList.remove('dark', "light");
-    // document.querySelector('html').classList.add(themeMode);
     localStorage.setItem("themeMode", themeMode);
 
     document.querySelectorAll('html, .header-normal, .header-drawer, .product-info, .search-cart, .cart, .item-cart-info, .cart-parent, .availableBalance, .total').forEach(element => {
