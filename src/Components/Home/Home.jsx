@@ -20,7 +20,9 @@ const Home = () => {
                         Welcome to &nbsp;<strong>QBuyDot</strong>
                     </h1>
                     <p>
-                        Where you can find all you need to shop at precise one Dot!                    </p>
+                        Where you can find all you need to shop at precise one Dot!                    
+                    </p>
+
                     <br /><br /><br />
                     <p>Please select an option from below to continue</p>
 
