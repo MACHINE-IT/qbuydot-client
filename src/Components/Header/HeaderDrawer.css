@@ -1,4 +1,4 @@
-.header-normal {
+.header-drawer {
     position: fixed;
     top: 0;
     display: flex;
@@ -22,11 +22,6 @@
     cursor: pointer;
 }
 
-.header-action {
-    display: flex;
-    align-items: center;
-}
-
 .header-info {
     padding-right: 2em;
 }
@@ -37,16 +32,14 @@
     color: #1890ff;
 }
 
-@media (max-width: 576px) {
-    .header-drawer {
-        display: block;
-    }
-
-    .header-normal {
-        display: none;
-    }
+.search-bar .ant-input-search {
+    width: 100%;
 }
 
-.ant-input-search {
-    width: 30%;
+.light .drawer-list-item:hover {
+    background-color: #f0f2f4;
+}
+
+.dark .drawer-list-item:hover {
+    background-color: #53585e;
 }

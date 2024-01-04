@@ -22,7 +22,8 @@ body {
 
 .dark {
   color: white;
-  background-color: #151212;
+  /* background-color: #151212; */
+  background-color: #161b22;
   border-color: #00a278;
 }
 
