@@ -6,8 +6,6 @@ import { useNavigate } from "react-router-dom";
 import { config } from "../../App";
 import "./Cart.css";
 import useTheme from "../../contexts/theme";
-// import { addToCart, removeFromCart, incrementQuantity, decrementQuantity } from "../../redux/actions";
-// import { useSelector, useDispatch } from "react-redux";
 
 /**
  * @typedef {Object} Product
