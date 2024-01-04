@@ -35,9 +35,11 @@ function ThemeBtn() {
     console.log(darkModeStatus)
     return (
         <>
-            <IconButton sx={{ ml: 1 }} onClick={() => onChangeBtnNew()} color="inherit">
-                {themeMode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
-            </IconButton>
+            <div onClick={() => onChangeBtnNew()}>
+                <IconButton sx={{ ml: 1 }} color="inherit">
+                    {themeMode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+                </IconButton>
+            </div>
             {/* <label className="themeToggleButton relative inline-flex items-center cursor-pointer">
                 <input
                     type="checkbox"
