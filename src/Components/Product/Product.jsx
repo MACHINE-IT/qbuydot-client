@@ -3,8 +3,6 @@ import { PlusCircleOutlined } from "@ant-design/icons";
 import { Button, Card, Rate } from "antd";
 import "./Product.css";
 import useTheme from "../../contexts/theme";
-// import { useDispatch, useSelector } from "react-redux";
-// import { addToCart } from "../../redux/actions";
 
 /**
  * @typedef {Object} Product
@@ -31,13 +29,6 @@ import useTheme from "../../contexts/theme";
  */
 export default function Product({ product, addToCart }) {
     const { themeMode } = useTheme();
-    // const themeMode = localStorage.getItem("themeMode") || "light";
-    // const dispatch = useDispatch();
-    // const cart = useSelector((state) => state.cart);
-
-    // const handleAddToCart = (product) => {
-    //     dispatch(addToCart(product))
-    // }
     return (
         // Use Antd Card component to create a card-like view for individual products
         <Card className={`product ${themeMode}`} hoverable>
