@@ -130,10 +130,10 @@ const Header = ({ children }) => {
     return (
         <div className={`header ${themeMode}`} >
             {/* Show HeaderDrawer for small screens */}
-            <HeaderDrawer className="header-drawer" />
+            <HeaderDrawer children={children} className="header-drawer" />
 
             {/* Show regular Header for larger screens */}
-            <div className="header-normal">
+            <div className={`header-normal ${themeMode}`}>
                 {/* Shows QBuyDot title image */}
                 <div className="header-title" onClick={home} >
                     <img src={themeMode === 'dark' ? 'QBuyDotLogo-newDarkMode.svg' : 'QBuyDotLogo-newLightMode.svg'} alt="QbuyDot-icon"></img>
@@ -158,7 +158,6 @@ const Header = ({ children }) => {
                             <Button type="primary" onClick={logout}>
                                 Logout
                             </Button>
-                            <ThemeBtn />
                         </>
                     ) : (
                         <>
@@ -174,12 +173,12 @@ const Header = ({ children }) => {
                                 <Button type="primary" onClick={register}>
                                     Register
                                 </Button>
-                                <ThemeBtn />
                             </div>
                         </>
                     )}
 
                 </div>
+                <ThemeBtn />
             </div>
         </div >
     );

@@ -40,7 +40,7 @@ const App = () => {
   useEffect(() => {
     localStorage.setItem("themeMode", themeMode);
 
-    document.querySelectorAll('html, .header, .product-info, .search-cart, .cart, .item-cart-info, .cart-parent, .availableBalance, .total').forEach(element => {
+    document.querySelectorAll('html, .header-normal, .header-drawer, .product-info, .search-cart, .cart, .item-cart-info, .cart-parent, .availableBalance, .total').forEach(element => {
       element.classList.remove('dark', 'light');
       element.classList.add(themeMode);
     });

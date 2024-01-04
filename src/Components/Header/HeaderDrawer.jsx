@@ -11,7 +11,7 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import { Button } from "antd";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import ThemeBtn from '../ThemeBtn/themebtn';
 import useTheme from "../../contexts/theme";
 import './HeaderDrawer.css';
@@ -19,6 +19,7 @@ import './HeaderDrawer.css';
 const drawerWidth = 240;
 
 function HeaderDrawer(props) {
+    const location = useLocation();
     const navigate = useNavigate();
     const { themeMode } = useTheme();
 
@@ -54,48 +55,109 @@ function HeaderDrawer(props) {
         navigate("/");
     };
 
+    const listBgColor = (path) => {
+        if (location.pathname === path && themeMode === 'dark') return '#292f36 !important';
+        else if (location.pathname === path && themeMode === 'light') return '#f0f2f4 !important';
+        else return 'transparent';
+    };
+
     const drawer = (
         <div>
             <List>
-                {/* Shows QBuyDot title image */}
-                <div className="header-title" onClick={home} >
-                    <img src={themeMode === 'dark' ? 'QBuyDotLogo-newDarkMode.svg' : 'QBuyDotLogo-newLightMode.svg'} alt="QbuyDot-icon"></img>
-                </div>
+                <ListItem onClick={home} disablePadding >
+                    <ListItemButton>
+                        {/* Shows QBuyDot title image */}
+                        <div className="header-title" >
+                            <img src={themeMode === 'dark' ? 'QBuyDotLogo-newDarkMode.svg' : 'QBuyDotLogo-newLightMode.svg'} alt="QbuyDot-icon" />
+                        </div>
+                    </ListItemButton>
+                </ListItem>
+
+                {localStorage.getItem("username") ? (
+                    <>
+                        <ListItem className="drawer-list-item" disablePadding sx={{ backgroundColor: listBgColor('/user-profile'), }}>
+                            <ListItemButton>
+                                <div className="header-link">
+                                    User Profile
+                                </div>
+                            </ListItemButton>
+                        </ListItem>
+                        <ListItem className="drawer-list-item" disablePadding onClick={logout} sx={{ backgroundColor: listBgColor('/logout'), }}>
+                            <ListItemButton>
+                                <div className="header-link">
+                                    Logout
+                                </div>
+                            </ListItemButton>
+                        </ListItem>
+                    </>
+                ) : (
+                    <>
+                        <ListItem className="drawer-list-item" disablePadding onClick={login}>
+                            <ListItemButton sx={{ backgroundColor: listBgColor('/login'), }}>
+                                <div className="header-link" >
+                                    Login
+                                </div>
+                            </ListItemButton>
+                        </ListItem>
+                        <ListItem className="drawer-list-item" disablePadding onClick={register} sx={{ backgroundColor: listBgColor('/register'), }}>
+                            <ListItemButton>
+                                <div className="header-link" >
+                                    Register
+                                </div>
+                            </ListItemButton>
+                        </ListItem>
+                    </>
+                )}
             </List>
-        </div>
+        </div >
     );
 
     const container =
         window !== undefined ? () => window().document.body : undefined;
 
     return (
-        <div className="header-drawer">
-            <IconButton
-                color="inherit"
-                aria-label="open drawer"
-                onClick={handleDrawerToggle}
-                sx={{ display: { sm: "none" } }}
-            >
-                <MenuIcon />
-            </IconButton>
-            <Drawer
-                container={container}
-                variant="temporary"
-                open={mobileOpen}
-                onClose={handleDrawerToggle}
-                ModalProps={{
-                    keepMounted: true,
-                }}
-                sx={{
-                    display: { xs: "block", sm: "none" },
-                    "& .MuiDrawer-paper": {
-                        boxSizing: "border-box",
-                        width: drawerWidth,
-                    },
-                }}
-            >
-                {drawer}
-            </Drawer>
+        <div className={`header-drawer ${themeMode}`}>
+            <div className="drawer">
+                <IconButton
+                    color="inherit"
+                    aria-label="open drawer"
+                    onClick={handleDrawerToggle}
+                    sx={{ display: { sm: "none" } }}
+                >
+                    <MenuIcon />
+                </IconButton>
+                <Drawer
+                    container={container}
+                    variant="temporary"
+                    open={mobileOpen}
+                    onClose={handleDrawerToggle}
+                    ModalProps={{
+                        keepMounted: true,
+                    }}
+                    sx={{
+                        display: { xs: "block", sm: "none" },
+                        "& .MuiDrawer-paper": {
+                            boxSizing: "border-box",
+                            width: drawerWidth,
+                            boxShadow: themeMode === 'dark'
+                                ? '0px 8px 10px -5px rgba(255,255,255,0.2), 0px 16px 24px 2px rgba(200,200,200,0.01), 0px 6px 30px 5px rgba(255,255,255,0.12)'
+                                : '0px 8px 10px -5px rgba(0,0,0,0.2), 0px 16px 24px 2px rgba(0,0,0,0.14), 0px 6px 30px 5px rgba(0,0,0,0.12)',
+                            // Explicitly set the theme-related styles here
+                            backgroundColor: themeMode === 'dark' ? '#161b22' : 'white',
+                            color: themeMode === 'dark' ? 'white' : 'black',
+                            // Add any other styles based on themeMode
+                        },
+                    }}
+                >
+                    {drawer}
+                </Drawer>
+            </div>
+            <div className="search-bar">
+                {props.children}
+            </div>
+            <div>
+                <ThemeBtn />
+            </div>
         </div>
     );
 }

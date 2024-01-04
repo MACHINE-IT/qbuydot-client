@@ -38,7 +38,15 @@
 }
 
 @media (max-width: 576px) {
+    .header-drawer {
+        display: block;
+    }
+
     .header-normal {
         display: none;
     }
+}
+
+.ant-input-search {
+    width: 30%;
 }
