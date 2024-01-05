@@ -6,7 +6,6 @@ import ThemeBtn from '../ThemeBtn/themebtn';
 import useTheme from "../../contexts/theme";
 import HeaderDrawer from './HeaderDrawer';
 
-
 const Header = ({ children }) => {
     const navigate = useNavigate();
     const { themeMode } = useTheme();
@@ -83,13 +82,13 @@ const Header = ({ children }) => {
                                 <Button type="primary" onClick={register}>
                                     Register
                                 </Button>
-                            </div>
+                            </div >
                         </>
                     )}
 
-                </div>
+                </div >
                 <ThemeBtn />
-            </div>
+            </div >
         </div >
     );
 };
