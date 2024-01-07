@@ -11,10 +11,9 @@ import { ThemeProvider } from './contexts/theme'
 import { useEffect } from 'react'
 import AuthRoute from "./AuthRoute/AuthRoute";
 import { jwtDecode } from "jwt-decode";
-import { LocalStorageProvider } from "./contexts/LocalStorageContext";
 
 export const config = {
-  endpoint: `http://localhost:3001/v1`,
+  endpoint: `https://qbuydot-backend.onrender.com/v1`,
 };
 
 const App = () => {
