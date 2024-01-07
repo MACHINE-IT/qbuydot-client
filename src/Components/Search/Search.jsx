@@ -35,6 +35,24 @@ import useTheme from "../../contexts/theme";
  */
 
 const Search = () => {
+    const [token, setToken] = useState(localStorage.getItem("token") || '');
+
+    // Effect to update the token state when local storage changes
+    useEffect(() => {
+        const handleStorageChange = () => {
+            // Update the token state with the latest value from local storage
+            setToken(localStorage.getItem('token'));
+        };
+
+        // Attach the event listener
+        window.addEventListener('storage', handleStorageChange);
+
+        // Clean up the event listener on component unmount
+        return () => {
+            window.removeEventListener('storage', handleStorageChange);
+        };
+    }, [localStorage]); // Include localStorage in the dependency array
+
     const navigate = useNavigate();
     const cartRef = useRef(null);
     const { themeMode } = useTheme();
@@ -262,7 +280,7 @@ const Search = () => {
                                 ref={cartRef}
                                 products={products}
                                 history={history}
-                                token={localStorage.getItem("token")}
+                                token={token}
                             />
                         </div>
                     </Col>

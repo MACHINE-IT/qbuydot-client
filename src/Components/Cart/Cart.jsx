@@ -30,6 +30,16 @@ const Cart = forwardRef(({ products, token, checkout }, ref) => {
     const [loading, setLoading] = useState(false);
     const { themeMode } = useTheme();
 
+    const logout = () => {
+        for (const key in localStorage) {
+            if (key !== 'themeMode') {
+                localStorage.removeItem(key);
+            }
+        }
+
+        navigate('/login');
+    }
+
     /**
  * Check the response of the API call to be valid and handle any failures along the way
  *
@@ -54,10 +64,11 @@ const Cart = forwardRef(({ products, token, checkout }, ref) => {
             );
             return false;
         } else if (response.message) {
-            message.error(response.message);
-            if (response.code === '401') {
-                navigate('/login');
+            if (response.code == '401') {
+                message.error(`Your session is Expired. Please login again!`);
+                logout();
             }
+            message.error(response.message);
             return false;
         }
 
