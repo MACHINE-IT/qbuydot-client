@@ -55,6 +55,9 @@ const Cart = forwardRef(({ products, token, checkout }, ref) => {
             return false;
         } else if (response.message) {
             message.error(response.message);
+            if (response.code === '401') {
+                navigate('/login');
+            }
             return false;
         }
 
@@ -265,6 +268,7 @@ const Cart = forwardRef(({ products, token, checkout }, ref) => {
     };
 
     useEffect(() => {
+
         refreshCart();
     }, []);
 

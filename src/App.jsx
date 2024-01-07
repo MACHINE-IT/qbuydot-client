@@ -9,13 +9,15 @@ import Search from "./Components/Search/Search";
 import Thanks from "./Components/Thanks/Thanks";
 import { ThemeProvider } from './contexts/theme'
 import { useEffect } from 'react'
+import AuthRoute from "./AuthRoute/AuthRoute";
+import { jwtDecode } from "jwt-decode";
+import { LocalStorageProvider } from "./contexts/LocalStorageContext";
 
 export const config = {
-  endpoint: `https://qbuydot-backend.onrender.com/v1`,
+  endpoint: `http://localhost:3001/v1`,
 };
 
 const App = () => {
-  const location = useLocation();
 
   // Scroll to top if path changes
   useLayoutEffect(() => {
@@ -55,9 +57,9 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/products" element={<Search />} />
-          <Route path="/checkout" element={<Checkout />} />
-          <Route path="/thanks" element={<Thanks />} />
+          <Route path="/products" element={<AuthRoute><Search /> </AuthRoute>} />
+          <Route path="/checkout" element={<AuthRoute><Checkout /></AuthRoute>} />
+          <Route path="/thanks" element={<AuthRoute><Thanks /></AuthRoute>} />
         </Routes>
       </div>
     </ThemeProvider>
