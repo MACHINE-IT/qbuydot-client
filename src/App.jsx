@@ -11,6 +11,7 @@ import { ThemeProvider } from './contexts/theme'
 import { useEffect } from 'react'
 import AuthRoute from "./AuthRoute/AuthRoute";
 import { jwtDecode } from "jwt-decode";
+import UserProfile from "./Components/UserProfile/UserProfile";
 
 export const config = {
   endpoint: `https://qbuydot-backend.onrender.com/v1`,
@@ -46,6 +47,7 @@ const App = () => {
       element.classList.remove('dark', 'light');
       element.classList.add(themeMode);
     });
+    localStorage.setItem('themeMode', themeMode);
 
   }, [themeMode])
 
@@ -57,8 +59,9 @@ const App = () => {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/products" element={<AuthRoute><Search /> </AuthRoute>} />
-          <Route path="/checkout" element={<AuthRoute><Checkout /></AuthRoute>} />
+          <Route path="/cart" element={<AuthRoute><Checkout /></AuthRoute>} />
           <Route path="/thanks" element={<AuthRoute><Thanks /></AuthRoute>} />
+          <Route path="/user-profile" element={<AuthRoute><UserProfile /></AuthRoute>} />
         </Routes>
       </div>
     </ThemeProvider>

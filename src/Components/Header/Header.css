@@ -17,6 +17,10 @@
     padding-right: 0.5em;
 }
 
+.profile-image:hover {
+    cursor: pointer;
+}
+
 .header-title {
     font-size: 1.5em;
     cursor: pointer;
@@ -25,6 +29,7 @@
 .header-action {
     display: flex;
     align-items: center;
+    gap: 2rem;
 }
 
 .header-info {
@@ -37,6 +42,41 @@
     color: #1890ff;
 }
 
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: #1677ff;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    top: 150%;
+    left: 50%;
+    margin-left: -60px;
+}
+
+.tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent #1677ff transparent;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
 @media (max-width: 576px) {
     .header-drawer {
         display: block;
@@ -44,6 +84,30 @@
 
     .header-normal {
         display: none;
+    }
+}
+
+@media (min-width: 1124px) {
+    .header-action {
+        margin-right: -15rem;
+    }
+}
+
+@media (min-width: 940px) and (max-width: 1123px) {
+    .header-action {
+        margin-right: -11rem;
+    }
+}
+
+@media (min-width: 720px) and (max-width: 939px) {
+    .header-action {
+        margin-right: -6rem;
+    }
+}
+
+@media (min-width: 577px) and (max-width: 719px) {
+    .header-action {
+        margin-right: -3rem;
     }
 }
 

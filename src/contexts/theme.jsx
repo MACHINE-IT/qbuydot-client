@@ -1,7 +1,7 @@
 import { createContext, useContext } from "react";
-
+console.log("contextApi mein h bhai konsi theme", localStorage.getItem('themeMode'));
 export const ThemeContext = createContext({
-    themeMode: "light",
+    themeMode: localStorage.getItem("themeMode") || 'light',
     darkTheme: () => { },
     lightTheme: () => { },
 });
