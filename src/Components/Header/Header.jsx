@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import ThemeBtn from '../ThemeBtn/themebtn';
 import useTheme from "../../contexts/theme";
 import HeaderDrawer from './HeaderDrawer';
+import UserProfile from "../UserProfile/UserProfile";
 
 const Header = ({ children }) => {
     const navigate = useNavigate();
@@ -55,16 +56,15 @@ const Header = ({ children }) => {
                 <div className="header-action">
                     {localStorage.getItem("username") ? (
                         <>
-                            <img
-                                src="avatar.png"
-                                alt="profile"
-                                className="profile-image"
-                            ></img>
-
-                            <div className="header-info">
-                                {localStorage.getItem("username")}
+                            <div className="tooltip">
+                                <img
+                                    src="avatar.png"
+                                    alt="profile"
+                                    className="profile-image"
+                                    onClick={() => navigate('/user-profile')}
+                                ></img>
+                                <span className="tooltiptext">User Profile</span>
                             </div>
-
                             <Button type="primary" onClick={logout}>
                                 Logout
                             </Button>

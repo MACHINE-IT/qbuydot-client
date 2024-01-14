@@ -73,10 +73,17 @@ function HeaderDrawer(props) {
 
                 {localStorage.getItem("username") ? (
                     <>
-                        <ListItem className="drawer-list-item" disablePadding sx={{ backgroundColor: listBgColor('/user-profile'), }}>
+                        <ListItem onClick={() => navigate('/user-profile')} className="drawer-list-item" disablePadding sx={{ backgroundColor: listBgColor('/user-profile'), }}>
                             <ListItemButton>
                                 <div className="header-link">
                                     User Profile
+                                </div>
+                            </ListItemButton>
+                        </ListItem>
+                        <ListItem onClick={() => navigate('/cart')} className="drawer-list-item" disablePadding sx={{ backgroundColor: listBgColor('/cart'), }}>
+                            <ListItemButton>
+                                <div className="header-link">
+                                    Cart
                                 </div>
                             </ListItemButton>
                         </ListItem>
