@@ -69,7 +69,7 @@ function UserOptionsDrawer(props) {
                             <img
                                 src="avatar.png"
                                 alt="profile"
-                                className="profile-image"
+                                className="user-option-profile-image"
                             ></img>
                             <div>{localStorage.getItem('username').charAt(0).toUpperCase() + localStorage.getItem('username').slice(1)}</div>
                         </div>
