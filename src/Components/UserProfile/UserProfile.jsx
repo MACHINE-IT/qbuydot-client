@@ -6,6 +6,7 @@ import { config } from '../../App';
 import { useNavigate } from 'react-router';
 import Header from '../Header/Header';
 import useTheme from '../../contexts/theme';
+import Footer from '../Footer/Footer';
 
 function UserProfile() {
     const { themeMode } = useTheme();
@@ -96,6 +97,7 @@ function UserProfile() {
                     </div>
                 </div>
             </div>
+            <Footer />
         </>
     )
 }
