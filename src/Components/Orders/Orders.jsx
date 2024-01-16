@@ -6,6 +6,7 @@ import Header from '../Header/Header';
 import useTheme from '../../contexts/theme';
 import { config } from '../../App';
 import moment from 'moment';
+import Footer from '../Footer/Footer';
 
 const Orders = () => {
     const { themeMode } = useTheme();
@@ -73,14 +74,14 @@ const Orders = () => {
         }
     };
     return (
-        <div>
+        <>
             <Header />
             <div className={`order flex-container user-orders-outer-box ${themeMode}`}>
                 Your Orders
                 {/* Display a card view for each product in the order */}
                 {!loading ? (items.map((outerItem) => (
 
-                    <div key={outerItem._id}> {/* Assuming outerItem has a unique id */}
+                    <div className="order-outer-box" key={outerItem._id}> {/* Assuming outerItem has a unique id */}
                         <div className="order-created-at">
                             <strong style={{ color: '#00a278' }}>Order Placed</strong>
                             <div>
@@ -137,7 +138,8 @@ const Orders = () => {
 
                 )}
             </div>
-        </div>
+            <Footer />
+        </>
     )
 }
 

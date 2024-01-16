@@ -1,3 +1,13 @@
+.order::-webkit-scrollbar {
+    width: 8px;
+    /* Adjust as needed */
+}
+
+.order::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0);
+    /* Transparent background */
+}
+
 .order {
     right: 0;
     padding: 1em 1em 2em 1em;
@@ -8,6 +18,7 @@
     /* box-shadow: 0px 0px 50px 0px rgba(0, 0, 0, 0.2) !important; */
     align-items: center;
     height: 100vh;
+    overflow-y: auto;
     flex-direction: column;
     margin-top: 4rem;
 }
@@ -96,4 +107,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.order-outer-box {
+    width: 50%;
+}
+
+@media (max-width: 576px) {
+    .order-outer-box {
+        width: auto;
+    }
 }
