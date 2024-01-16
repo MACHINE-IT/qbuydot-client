@@ -4,6 +4,7 @@
     background: #f6f8fa;
     text-align: center;
     z-index: 2;
+    height: 100vh;
     overflow-y: auto;
     box-shadow: 0px 0px 50px 0px rgba(0, 0, 0, 0.2) !important;
 }

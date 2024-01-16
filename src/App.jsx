@@ -12,6 +12,7 @@ import { useEffect } from 'react'
 import AuthRoute from "./AuthRoute/AuthRoute";
 import { jwtDecode } from "jwt-decode";
 import UserProfile from "./Components/UserProfile/UserProfile";
+import Orders from "./Components/Orders/Orders";
 
 export const config = {
   endpoint: `https://qbuydot-backend.onrender.com/v1`,
@@ -61,6 +62,7 @@ const App = () => {
           <Route path="/products" element={<AuthRoute><Search /> </AuthRoute>} />
           <Route path="/cart" element={<AuthRoute><Checkout /></AuthRoute>} />
           <Route path="/thanks" element={<AuthRoute><Thanks /></AuthRoute>} />
+          <Route path="/orders" element={<AuthRoute><Orders /></AuthRoute>} />
           <Route path="/user-profile" element={<AuthRoute><UserProfile /></AuthRoute>} />
         </Routes>
       </div>
