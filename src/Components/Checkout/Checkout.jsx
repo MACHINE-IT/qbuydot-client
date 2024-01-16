@@ -177,6 +177,7 @@ const Checkout = () => {
     //     }
     // };
 
+
     const checkout = async () => {
         let response = {};
         let errored = false;
@@ -211,8 +212,7 @@ const Checkout = () => {
                 parseInt(localStorage.getItem("balance")) -
                 cartRef.current.calculateTotal()
             );
-
-            navigate("/thanks");
+            navigate('/thanks');
         }
     };
 

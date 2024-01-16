@@ -32,10 +32,15 @@ const Thanks = ({ history }) => {
                     Wallet balance: <br></br>₹{localStorage.getItem("balance")}{" "}
                     available
                 </div>
+                <div className="orders-products-buttons">
+                    <Link to="/orders">
+                        <Button type="primary">Go to your orders</Button>
+                    </Link>
+                    <Link to="/products">
+                        <Button type="primary">Browse for more products</Button>
+                    </Link>
+                </div>
 
-                <Link to="/products" className="thanks-line">
-                    <Button type="primary">Browse for more products</Button>
-                </Link>
             </div>
         </>
     );

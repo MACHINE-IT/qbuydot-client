@@ -1,17 +1,27 @@
 /* eslint-disable react/no-children-prop */
 /* eslint-disable react/prop-types */
-import { Button } from "antd";
+import { useState } from 'react';
+import { Button, List } from "antd";
 import "./Header.css";
 import { useNavigate } from "react-router-dom";
 import ThemeBtn from '../ThemeBtn/themebtn';
 import useTheme from "../../contexts/theme";
 import HeaderDrawer from './HeaderDrawer';
 import UserProfile from "../UserProfile/UserProfile";
+import UserOptionsDrawer from './UserOptionsDrawer';
+// import { ShoppingCartOutlined } from '@mui/icons-material';
 
 const Header = ({ children }) => {
     const navigate = useNavigate();
     const { themeMode } = useTheme();
+    const [showList, setShowList] = useState(false); // State to manage list visibility
+    const [mobileOpen, setMobileOpen] = useState(false);
 
+    const handleDrawerToggle = () => {
+        setMobileOpen(!mobileOpen);
+        // Toggle the list visibility when the drawer is clicked
+        setShowList(!showList);
+    };
 
     const home = () => {
         navigate("/products");
@@ -56,18 +66,27 @@ const Header = ({ children }) => {
                 <div className="header-action">
                     {localStorage.getItem("username") ? (
                         <>
-                            <div className="tooltip">
+                            <ThemeBtn />
+                            {/* <div>
                                 <img
                                     src="avatar.png"
                                     alt="profile"
                                     className="profile-image"
-                                    onClick={() => navigate('/user-profile')}
+                                    onClick={toggleList}
                                 ></img>
-                                <span className="tooltiptext">User Profile</span>
-                            </div>
-                            <Button type="primary" onClick={logout}>
-                                Logout
-                            </Button>
+                            </div> */}
+                            {/* Conditional rendering of the list based on the state */}
+                            <UserOptionsDrawer />
+
+
+                            {/* <div className="link" onClick={navigate('/cart')}>
+                                <div className='cart-icon'>
+                                    {
+                                        cart.length ? <div className='cart-count'>{countItemsInBag(cart)}</div> : null
+                                    }
+                                    <ShoppingCartOutlined />
+                                </div>
+                            </div> */}
                         </>
                     ) : (
                         <>
@@ -84,11 +103,12 @@ const Header = ({ children }) => {
                                     Register
                                 </Button>
                             </div >
+                            <ThemeBtn />
                         </>
                     )}
 
                 </div >
-                <ThemeBtn />
+
             </div >
         </div >
     );

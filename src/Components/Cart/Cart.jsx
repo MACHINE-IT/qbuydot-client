@@ -372,7 +372,7 @@ const Cart = forwardRef(({ products, token, checkout }, ref) => {
                     icon={<ShoppingCartOutlined />}
                     onClick={() => {
                         if (items.length) {
-                            navigate("/checkout");
+                            navigate("/cart");
                         } else {
                             message.error("You must add items to cart first");
                         }

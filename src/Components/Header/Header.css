@@ -87,29 +87,6 @@
     }
 }
 
-@media (min-width: 1124px) {
-    .header-action {
-        margin-right: -15rem;
-    }
-}
-
-@media (min-width: 940px) and (max-width: 1123px) {
-    .header-action {
-        margin-right: -11rem;
-    }
-}
-
-@media (min-width: 720px) and (max-width: 939px) {
-    .header-action {
-        margin-right: -6rem;
-    }
-}
-
-@media (min-width: 577px) and (max-width: 719px) {
-    .header-action {
-        margin-right: -3rem;
-    }
-}
 
 .ant-input-search {
     width: 30%;
