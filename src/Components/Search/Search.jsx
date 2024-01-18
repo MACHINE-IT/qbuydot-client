@@ -36,7 +36,7 @@ import useTheme from "../../contexts/theme";
 
 const Search = () => {
     const [token, setToken] = useState(localStorage.getItem("token") || '');
-
+    //console.log(token)
     // Effect to update the token state when local storage changes
     useEffect(() => {
         const handleStorageChange = () => {
