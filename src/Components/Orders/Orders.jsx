@@ -13,6 +13,7 @@ const Orders = () => {
     const navigate = useNavigate();
     const [items, setItems] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [totalOrderCost, setTotalOrderCost] = useState(0)
 
     useEffect(() => {
         getOrders();
@@ -83,6 +84,7 @@ const Orders = () => {
 
                     <div className="order-outer-box" key={outerItem._id}> {/* Assuming outerItem has a unique id */}
                         <div className="order-created-at">
+                            {console.log(`outerItem is: ${JSON.stringify(outerItem)}`)}
                             <strong style={{ color: '#00a278' }}>Order Placed</strong>
                             <div>
                                 {moment(outerItem.createdAt).utc().add(5.5, 'hours').format('ddd, DD MMM hh:mm A')}
@@ -128,6 +130,12 @@ const Orders = () => {
                                     </div>
                                 </Card>
                             ))}
+                            <div className="order-toal-cost">
+                                <div>
+                                    <strong>Total Order Cost</strong>
+                                </div>
+                                <div><strong>{outerItem.orderTotalCost}</strong></div>
+                            </div>
 
                         </div>
                     </div>

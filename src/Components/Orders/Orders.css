@@ -31,11 +31,9 @@
 }
 
 .orders-parent-box {
-
     border-radius: 8px;
     margin: 1em auto;
     padding: 1em auto;
-
 }
 
 .dark .orders-parent-box {
@@ -113,6 +111,13 @@
     text-align: left;
 }
 
+.order-toal-cost {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 0.5em 0.5em 2em;
+}
+
 .order-item-cost-margin {
     margin-left: 1rem;
 }
@@ -131,6 +136,12 @@
 
 .order-outer-box {
     width: 50%;
+}
+
+@media (max-width: 769px) {
+    .orders-parent-box {
+        margin-top: 2em !important;
+    }
 }
 
 @media (max-width: 576px) {
