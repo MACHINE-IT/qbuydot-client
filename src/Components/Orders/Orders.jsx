@@ -13,6 +13,8 @@ const Orders = () => {
     const navigate = useNavigate();
     const [items, setItems] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [totalOrderCost, setTotalOrderCost] = useState(0)
+
 
     useEffect(() => {
         getOrders();
@@ -92,7 +94,6 @@ const Orders = () => {
                             {outerItem.orderItems.map((item) => (
                                 <Card className="order-item" key={item.productId}>
                                     {/* Display product image */}
-                                    {console.log(`item is:`, item)}
                                     <img
                                         className="order-item-image"
                                         alt={item.product.name}
@@ -128,6 +129,12 @@ const Orders = () => {
                                     </div>
                                 </Card>
                             ))}
+                            <div className="order-toal-cost">
+                                <div>
+                                    <strong>Total Order Cost</strong>
+                                </div>
+                                <div><strong>{outerItem.orderTotalCost}</strong></div>
+                            </div>
 
                         </div>
                     </div>

@@ -62,14 +62,15 @@ function UserOptionsDrawer(props) {
     const drawer = (
         <div>
             <List>
-                <ListItem classname="user-title-list-item" disablePadding >
+
+                <ListItem className="user-title-list-item" disablePadding >
                     <ListItemButton>
                         {/* Shows QBuyDot title image */}
                         <div className="user-title" >
                             <img
                                 src="avatar.png"
                                 alt="profile"
-                                className="profile-image"
+                                className="user-option-profile-image"
                             ></img>
                             <div>{localStorage.getItem('username').charAt(0).toUpperCase() + localStorage.getItem('username').slice(1)}</div>
                         </div>
