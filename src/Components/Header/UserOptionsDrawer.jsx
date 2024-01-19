@@ -62,6 +62,7 @@ function UserOptionsDrawer(props) {
     const drawer = (
         <div>
             <List>
+
                 <ListItem className="user-title-list-item" disablePadding >
                     <ListItemButton>
                         {/* Shows QBuyDot title image */}

@@ -15,6 +15,7 @@ const Orders = () => {
     const [loading, setLoading] = useState(false);
     const [totalOrderCost, setTotalOrderCost] = useState(0)
 
+
     useEffect(() => {
         getOrders();
     }, []);
@@ -84,7 +85,6 @@ const Orders = () => {
 
                     <div className="order-outer-box" key={outerItem._id}> {/* Assuming outerItem has a unique id */}
                         <div className="order-created-at">
-                            {console.log(`outerItem is: ${JSON.stringify(outerItem)}`)}
                             <strong style={{ color: '#00a278' }}>Order Placed</strong>
                             <div>
                                 {moment(outerItem.createdAt).utc().add(5.5, 'hours').format('ddd, DD MMM hh:mm A')}
@@ -94,7 +94,6 @@ const Orders = () => {
                             {outerItem.orderItems.map((item) => (
                                 <Card className="order-item" key={item.productId}>
                                     {/* Display product image */}
-                                    {console.log(`item is:`, item)}
                                     <img
                                         className="order-item-image"
                                         alt={item.product.name}
