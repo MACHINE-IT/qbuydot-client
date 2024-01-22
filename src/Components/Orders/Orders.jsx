@@ -142,7 +142,6 @@ const Orders = () => {
                     <div className={`loading-overlay ${themeMode}`}>
                         <Spin size="large" />
                     </div>
-
                 )}
             </div>
             <Footer />
