@@ -49,6 +49,20 @@
     align-items: center;
 }
 
+#user-profile-image-container {
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+#user-profile-image {
+    width: 100%;
+    height: auto;
+}
+
+
+
 #user-option-profile-image {}
 
 #user-image-edit-button {
