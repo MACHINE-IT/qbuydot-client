@@ -76,7 +76,7 @@ function HeaderDrawer(props) {
                         <ListItem onClick={() => navigate('/user-profile')} className="drawer-list-item" disablePadding sx={{ backgroundColor: listBgColor('/user-profile'), }}>
                             <ListItemButton>
                                 <div className="header-link">
-                                    User Profile
+                                    Your Profile
                                 </div>
                             </ListItemButton>
                         </ListItem>
