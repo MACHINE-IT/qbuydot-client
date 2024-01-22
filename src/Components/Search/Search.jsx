@@ -1,4 +1,4 @@
-import { Input, message } from "antd";
+import { Input, message, Spin } from "antd";
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { config } from "../../App";
@@ -8,7 +8,7 @@ import Product from "../Product/Product";
 import { Row, Col } from "antd";
 import Footer from "../Footer/Footer";
 import "./Search.css";
-import "../Cart/Cart.css"
+import "../Cart/Cart.css";
 import useTheme from "../../contexts/theme";
 
 /**
@@ -264,7 +264,13 @@ const Search = () => {
                             {products.length !== 0 ? (
                                 filteredProducts.map((product) => getProductElement(product))
                             ) : loading ? (
-                                <div className="loading-text">Loading products...</div>
+                                <div>
+                                    <div className="loading-text">Loading products...</div>
+                                    <div className={`loading-overlay ${themeMode}`}>
+                                        <Spin size="large" />
+                                    </div>
+                                </div>
+
                             ) : (
                                 <div className="loading-text">No products to list</div>
                             )}

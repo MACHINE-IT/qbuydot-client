@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { message, Skeleton } from 'antd';
+import React, { useEffect, useState, useRef } from 'react';
+import { message, Skeleton, Button, Input } from 'antd';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import axios from 'axios';
 import './UserProfile.css';
 import { config } from '../../App';
@@ -13,17 +14,36 @@ function UserProfile() {
     const navigate = useNavigate();
     const token = localStorage.getItem('token');
     const [loading, setLoading] = useState(false);
+    const [isEditing, setIsEditing] = useState(false);
     const [username, setUsername] = useState(localStorage.getItem('username') || '');
     const [userId, setUserId] = useState(localStorage.getItem('userId') || '');
     const [name, setName] = useState(localStorage.getItem('name') || '');
+    const [editName, setEditName] = useState(null);
     const [email, setEmail] = useState(localStorage.getItem('email') || '');
     const [address, setAddress] = useState(localStorage.getItem('address') || '');
+    const [editAddress, setEditAddress] = useState(null);
     const [balanceAmount, setBalanceAmount] = useState(localStorage.getItem('balance') || '');
 
     useEffect(() => {
         fetchUserDetails();
     }, []);
 
+    const toggleEditing = () => {
+        setIsEditing(!isEditing);
+    }
+
+    const saveUserEditHandler = () => {
+        setName(editName || name);
+        setAddress(editAddress || address);
+        editUserDetails();
+        cancelUserEditHandler();
+    }
+
+    const cancelUserEditHandler = () => {
+        toggleEditing();
+        setEditName(null);
+        setEditAddress(null);
+    };
 
     const logout = () => {
         for (const key in localStorage) {
@@ -53,6 +73,34 @@ function UserProfile() {
         return true;
     };
 
+    const editUserDetails = async () => {
+        let response = {};
+        let errored = false;
+        try {
+            setLoading(true);
+            response = await axios.patch(`${config.endpoint}/users/${userId}`,
+                {
+                    name: editName || name,
+                    address: editAddress || address,
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+            setLoading(false);
+        } catch (e) {
+            errored = true;
+        }
+        if (validateResponse(errored, response)) {
+            console.log(response.data)
+            setName(response.data.name.split('')[0].toUpperCase() + response.data.name.slice(1));
+            setAddress(response.data.address);
+            message.success("Updated successfully!")
+            return response;
+        }
+    }
+
     const fetchUserDetails = async () => {
         let response = {};
         let errored = false;
@@ -79,24 +127,93 @@ function UserProfile() {
             < Header />
             <div className={`flex-container user-profile-outer-box ${themeMode}`}>
                 <div className="user-profile">
+                    <div id="user-profile-user-title" >
+                        {loading ? <Skeleton.Avatar size="large" style={{ width: 100, height: 100 }} loading={loading} active avatar />
+                            : (
+                                <>
+                                    <img
+                                        src="avatar.png"
+                                        alt="profile"
+                                        id="user-profile-image"
+                                        width="100"
+                                        height="100"
+                                    />
+                                    {isEditing && <Button type="primary" id="user-image-edit-button">
+                                        <EditOutlinedIcon id="user-image-edit-icon" style={{ fontSize: '18px' }} />
+                                        <span>Edit</span>
+                                    </Button>}</>
+                            )}
+                    </div>
+
                     <div className="user-profile-child-div">
-                        <strong style={{ marginRight: '10px' }}>Name: </strong>
-                        {loading ? <Skeleton.Input active size="small" style={{ width: 100 }} />
-                            : name}
+                        <div><strong>Name</strong></div>
+                        <div>
+                            {/* {isEditing ? ( */}
+                            {loading ? <Skeleton.Input active size="small" style={{ width: 300 }} />
+                                : <Input
+                                    className={`user-input ${isEditing ? 'user-input-editable' : ''}`}
+                                    value={editName || name}
+                                    onChange={(e) => setEditName(e.target.value)}
+                                    readOnly={!isEditing}
+                                />}
+                            {/* ) :
+                                (
+                                    <span>{loading ? <Skeleton.Input active size="small" style={{ width: 100 }} />
+                                        : name}</span>
+                                )} */}
+                        </div>
                     </div>
                     <div className="user-profile-child-div">
-                        <strong>Email:</strong> <div style={{ marginLeft: '10px' }}>{email}</div>
+                        <div><strong>Email</strong></div>
+                        <div>{loading ? <Skeleton.Input active size="small" style={{ width: 300 }} />
+                            : <Input
+                                className="user-input-email"
+                                value={email}
+                                disabled={true}
+                            />}</div>
                     </div >
                     <div className="user-profile-child-div">
-                        <strong style={{ marginRight: '10px' }}>Address: </strong>
-                        {loading ? <Skeleton.Input active size="small" style={{ width: 300 }} />
-                            : address}
+                        <div><strong>Address</strong></div>
+                        <div id="user-edit-textarea">
+                            {/* {isEditing ? ( */}
+                            {loading ? <Skeleton.Input active size="small" style={{ width: 300, height: 80 }} />
+                                : <Input.TextArea
+                                    className={`user-input ${isEditing ? 'user-input-editable' : ''}`}
+                                    id="address-edit-textarea"
+                                    value={editAddress || address}
+                                    onChange={(e) => setEditAddress(e.target.value)}
+                                    autoSize={{ minRows: 3, maxRows: 5, }}
+                                    readOnly={!isEditing}
+                                />}
+                            {/* // ) :
+                            //     (<span>{loading ? <Skeleton.Input active size="small" style={{ width: 300 }} />
+                            //         : address}</span>
+                            //     )} */}
+                        </div>
                     </div>
                     <div className="user-profile-child-div">
-                        <strong>Balance Amount:</strong> <div style={{ marginLeft: '10px' }}>&#x20b9; {balanceAmount}</div>
+                        <div><strong>Balance Amount</strong></div>
+                        <div>{loading ? <Skeleton.Input active size="small" style={{ width: 300 }} />
+                            : (<>₹ {balanceAmount}</>)
+                        }</div>
+                    </div>
+                    <div className="edit-save-buttons">
+                        {isEditing ? (
+                            <>
+                                <Button id="save-button" type="primary" onClick={saveUserEditHandler}>
+                                    Save
+                                </Button>
+                                <Button id="cancel-button" onClick={cancelUserEditHandler}>Cancel</Button>
+                            </>
+                        ) : (
+                            !loading && <Button type="primary" onClick={toggleEditing}>
+                                Edit Details
+                            </Button>
+                        )}
                     </div>
                 </div>
-            </div>
+
+            </div >
             <Footer />
         </>
     )
