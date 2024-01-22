@@ -1,4 +1,4 @@
-import { Button, message, Radio, Row, Col } from "antd";
+import { Button, message, Radio, Row, Col, Skeleton, Input } from "antd";
 import TextArea from "antd/lib/input/TextArea";
 import { useEffect, useRef, useState } from "react";
 import { config } from "../../App";
@@ -271,7 +271,7 @@ const Checkout = () => {
                                     </div>
                                 ) : (
                                     // Display static text banner if no addresses are added
-                                    <div className="red-text checkout-row">
+                                    loading ? <Skeleton.Input active size="small" style={{ width: 300, marginTop: '1em' }} /> : <div className="red-text checkout-row">
                                         No addresses found. Please add one to proceed.
                                     </div>
                                 )}
@@ -279,14 +279,16 @@ const Checkout = () => {
                                 <div className="checkout-row">
                                     {/* Text input field to type a new address */}
                                     <div>
-                                        <TextArea
+                                        <Input.TextArea
                                             className="new-address"
+                                            id="new-address-edit-textarea"
                                             placeholder={
                                                 address
                                                     ? "Update Address"
                                                     : "Add new address"
                                             }
-                                            rows={4}
+                                            // rows={4}
+                                            autoSize={{ minRows: 3, maxRows: 5, }}
                                             value={newAddress}
                                             onChange={(e) => {
                                                 setNewAddress(e.target.value);
