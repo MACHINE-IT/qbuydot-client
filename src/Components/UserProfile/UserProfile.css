@@ -42,7 +42,31 @@
     align-items: center;
 }
 
+#user-profile-user-title {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#user-option-profile-image {}
+
+#user-image-edit-button {
+    position: absolute;
+    bottom: 6px;
+    right: 10px;
+    padding: 3px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 4em;
+    height: 1.7em;
+}
+
+#user-image-edit-icon {}
+
 .user-profile {
+    margin-top: 5em;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;

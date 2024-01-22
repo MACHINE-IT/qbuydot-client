@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { message, Skeleton, Button, Input } from 'antd';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import axios from 'axios';
 import './UserProfile.css';
 import { config } from '../../App';
@@ -126,6 +127,24 @@ function UserProfile() {
             < Header />
             <div className={`flex-container user-profile-outer-box ${themeMode}`}>
                 <div className="user-profile">
+                    <div id="user-profile-user-title" >
+                        {loading ? <Skeleton.Avatar size="large" style={{ width: 100, height: 100 }} loading={loading} active avatar />
+                            : (
+                                <>
+                                    <img
+                                        src="avatar.png"
+                                        alt="profile"
+                                        id="user-profile-image"
+                                        width="100"
+                                        height="100"
+                                    />
+                                    {isEditing && <Button type="primary" id="user-image-edit-button">
+                                        <EditOutlinedIcon id="user-image-edit-icon" style={{ fontSize: '18px' }} />
+                                        <span>Edit</span>
+                                    </Button>}</>
+                            )}
+                    </div>
+
                     <div className="user-profile-child-div">
                         <div><strong>Name</strong></div>
                         <div>
@@ -157,7 +176,7 @@ function UserProfile() {
                         <div><strong>Address</strong></div>
                         <div id="user-edit-textarea">
                             {/* {isEditing ? ( */}
-                            {loading ? <Skeleton.Input active size="small" style={{ width: 300 }} />
+                            {loading ? <Skeleton.Input active size="small" style={{ width: 300, height: 80 }} />
                                 : <Input.TextArea
                                     className={`user-input ${isEditing ? 'user-input-editable' : ''}`}
                                     id="address-edit-textarea"
