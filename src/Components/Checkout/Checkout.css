@@ -32,6 +32,7 @@
     align-items: center;
     height: 100%;
     padding: 20px;
+    margin-top: 1em;
     white-space: pre-wrap;
     border: 1px solid #999;
     width: 50%;
@@ -46,6 +47,10 @@
     width: 30em;
     margin-right: 1em;
     margin-bottom: 1em;
+}
+
+#new-address-edit-textarea {
+    resize: vertical !important;
 }
 
 label.ant-radio-button-wrapper {
