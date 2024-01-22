@@ -68,7 +68,7 @@ function UserProfile() {
             }
             setEditUserSelectedImage(file);
             console.log(`user ki image file hai bhai: `, file);
-        };
+        }
     }
 
     const logout = () => {
