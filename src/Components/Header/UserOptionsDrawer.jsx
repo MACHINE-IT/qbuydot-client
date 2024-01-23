@@ -71,7 +71,7 @@ function UserOptionsDrawer(props) {
                         {/* Shows QBuyDot title image */}
                         <div className="user-title" >
                             <img
-                                src={userImage ? URL.createObjectURL(userImage) : "avatar.png"}
+                                src={userImage ? userImage : "avatar.png"}
                                 alt="profile"
                                 id="user-option-profile-image"
                             ></img>
@@ -127,7 +127,7 @@ function UserOptionsDrawer(props) {
                 // sx={{ display: { sm: "none" } }}
                 >
                     <img
-                        src={userImage ? URL.createObjectURL(userImage) : "avatar.png"}
+                        src={userImage ? userImage : "avatar.png"}
                         alt="profile"
                         className="profile-image"
                         id="header-profile-image"

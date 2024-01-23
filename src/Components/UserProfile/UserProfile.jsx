@@ -30,6 +30,7 @@ function UserProfile() {
     const [userSelectedImage, setUserSelectedImage] = useState(userSelectedReduxImage || null);
     const [editUserSelectedImage, setEditUserSelectedImage] = useState(null);
     const fileInputRef = useRef(null);
+    const [userProfileImagePath, setUserProfileImagePath] = useState(null);
 
 
     useEffect(() => {
@@ -40,12 +41,16 @@ function UserProfile() {
         setIsEditing(!isEditing);
     }
 
-    const saveUserEditHandler = () => {
+    const saveUserEditHandler = async () => {
         setName(editName || name);
         setAddress(editAddress || address);
         setUserSelectedImage(editUserSelectedImage || userSelectedImage)
-        dispatch(setProfileImage(editUserSelectedImage || userSelectedImage));
-        editUserDetails();
+        // dispatch(setProfileImage(editUserSelectedImage || userSelectedImage));
+        const response = await editUserDetails();
+        if (response) {
+            const imageUrl = `${config.fileEndpoint}/${response.data.profileImagePath}`;
+            dispatch(setProfileImage(imageUrl));
+        }
         cancelUserEditHandler();
     }
 
@@ -104,11 +109,16 @@ function UserProfile() {
         let errored = false;
         try {
             setLoading(true);
+
+            const formData = new FormData();
+            formData.append('name', editName || name);
+            formData.append('address', editAddress || address);
+            if (editUserSelectedImage || userSelectedImage) {
+                formData.append('profileImage', editUserSelectedImage || userSelectedImage);
+            }
+
             response = await axios.patch(`${config.endpoint}/users/${userId}`,
-                {
-                    name: editName || name,
-                    address: editAddress || address,
-                },
+                formData,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -122,6 +132,9 @@ function UserProfile() {
             console.log(response.data)
             setName(response.data.name.split('')[0].toUpperCase() + response.data.name.slice(1));
             setAddress(response.data.address);
+            setUserProfileImagePath(response.data.profileImagePath);
+            dispatch(setProfileImage(`${config.fileEndpoint}/${response.data.profileImagePath}`));
+            setUserSelectedImage(`${config.fileEndpoint}/${response.data.profileImagePath}`)
             message.success("Updated successfully!")
             return response;
         }
@@ -145,6 +158,9 @@ function UserProfile() {
             console.log(response.data)
             setName(response.data.name.split('')[0].toUpperCase() + response.data.name.slice(1));
             setAddress(response.data.address);
+            setUserProfileImagePath(response.data.profileImagePath);
+            dispatch(setProfileImage(`${config.fileEndpoint}/${response.data.profileImagePath}`));
+            setUserSelectedImage(`${config.fileEndpoint}/${response.data.profileImagePath}`)
             return response;
         }
     }
@@ -168,7 +184,7 @@ function UserProfile() {
                                     <label htmlFor="image-upload-input">
                                         <div id="user-profile-image-container">
                                             <img
-                                                src={(editUserSelectedImage || userSelectedImage) ? URL.createObjectURL(editUserSelectedImage || userSelectedImage) : 'avatar.png'}
+                                                src={editUserSelectedImage ? URL.createObjectURL(editUserSelectedImage) : (userSelectedImage || userProfileImagePath ? userSelectedImage : 'avatar.png')}
                                                 alt="profile"
                                                 id="user-profile-image"
                                                 width="100"

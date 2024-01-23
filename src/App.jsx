@@ -19,6 +19,7 @@ import store from "./redux/Store";
 
 export const config = {
   endpoint: `https://qbuydot-backend.onrender.com/v1`,
+  fileEndpoint: `https://qbuydot-backend.onrender.com`,
 };
 
 const App = () => {

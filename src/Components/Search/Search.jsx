@@ -10,6 +10,9 @@ import Footer from "../Footer/Footer";
 import "./Search.css";
 import "../Cart/Cart.css";
 import useTheme from "../../contexts/theme";
+import { useDispatch } from "react-redux";
+import axios from "axios";
+import { setProfileImage, selectProfileImage } from '../../redux/UserSlice';
 
 /**
  * @typedef {Object} Product
@@ -35,6 +38,8 @@ import useTheme from "../../contexts/theme";
  */
 
 const Search = () => {
+    const dispatch = useDispatch();
+    // const [profileImage, setProfileImage] = useState(null)
     const [token, setToken] = useState(localStorage.getItem("token") || '');
     //console.log(token)
     // Effect to update the token state when local storage changes
@@ -131,6 +136,28 @@ const Search = () => {
         }
     };
 
+    const getUserImage = async () => {
+        let response = {};
+        let errored = false;
+
+        setLoading(true);
+
+        try {
+            response = await axios.get(`${config.endpoint}/users/${localStorage.getItem('userId')}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+        } catch (e) {
+            errored = true;
+        }
+
+        setLoading(false);
+        dispatch(setProfileImage(`${config.fileEndpoint}/${response.data.profileImagePath}`));
+
+    };
+
     /**
  * Definition for debounce handler
  * This is the function that is called whenever the user types or changes the text in the searchbar field
@@ -205,6 +232,7 @@ const Search = () => {
      */
 
     useEffect(() => {
+        getUserImage();
         getProducts();
 
         if (localStorage.getItem("email") && localStorage.getItem("token")) {
