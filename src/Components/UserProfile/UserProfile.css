@@ -72,8 +72,6 @@
     height: auto;
 }
 
-
-
 #user-option-profile-image {}
 
 #user-image-edit-button {
@@ -93,6 +91,7 @@
 .user-profile {
     margin-top: 15em;
     margin-bottom: 5em;
+
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
