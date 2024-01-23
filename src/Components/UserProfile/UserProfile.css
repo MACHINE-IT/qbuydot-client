@@ -22,6 +22,16 @@
 
 .user-profile>div {} */
 
+.user-profile-outer-box::-webkit-scrollbar {
+    width: 8px;
+    /* Adjust as needed */
+}
+
+.user-profile-outer-box::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0);
+    /* Transparent background */
+}
+
 .loading-overlay {
     position: absolute;
     top: 0;
@@ -35,6 +45,7 @@
 }
 
 .user-profile-outer-box {
+    overflow-y: auto;
     width: 100%;
     height: 100vh;
     display: flex;
@@ -47,6 +58,18 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+#user-profile-image-container {
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+#user-profile-image {
+    width: 100%;
+    height: auto;
 }
 
 #user-option-profile-image {}
@@ -66,7 +89,9 @@
 #user-image-edit-icon {}
 
 .user-profile {
-    margin-top: 5em;
+    margin-top: 15em;
+    margin-bottom: 5em;
+
     display: flex;
     flex-direction: column;
     justify-content: flex-start;

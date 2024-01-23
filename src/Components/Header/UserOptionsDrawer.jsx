@@ -13,6 +13,7 @@ import { Button } from "antd";
 import { useLocation, useNavigate } from "react-router-dom";
 import useTheme from "../../contexts/theme";
 import './UserOptionsDrawer.css';
+import { useSelector } from "react-redux";
 
 const drawerWidth = 240;
 
@@ -20,7 +21,9 @@ function UserOptionsDrawer(props) {
     const location = useLocation();
     const navigate = useNavigate();
     const { themeMode } = useTheme();
+    const userImage = useSelector(state => state.user.profileImage);
 
+    console.log(`userImage change hua: `, userImage);
     const { window } = props;
     const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -68,9 +71,9 @@ function UserOptionsDrawer(props) {
                         {/* Shows QBuyDot title image */}
                         <div className="user-title" >
                             <img
-                                src="avatar.png"
+                                src={userImage ? userImage : "avatar.png"}
                                 alt="profile"
-                                className="user-option-profile-image"
+                                id="user-option-profile-image"
                             ></img>
                             <div>{localStorage.getItem('username').charAt(0).toUpperCase() + localStorage.getItem('username').slice(1)}</div>
                         </div>
@@ -124,9 +127,10 @@ function UserOptionsDrawer(props) {
                 // sx={{ display: { sm: "none" } }}
                 >
                     <img
-                        src="avatar.png"
+                        src={userImage ? userImage : "avatar.png"}
                         alt="profile"
                         className="profile-image"
+                        id="header-profile-image"
                     />
                 </IconButton>
                 <Drawer

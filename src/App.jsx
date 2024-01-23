@@ -13,9 +13,13 @@ import AuthRoute from "./AuthRoute/AuthRoute";
 import { jwtDecode } from "jwt-decode";
 import UserProfile from "./Components/UserProfile/UserProfile";
 import Orders from "./Components/Orders/Orders";
+import { Provider } from 'react-redux';
+import store from "./redux/Store";
+
 
 export const config = {
   endpoint: `https://qbuydot-backend.onrender.com/v1`,
+  fileEndpoint: `https://qbuydot-backend.onrender.com`,
 };
 
 const App = () => {
@@ -54,18 +58,20 @@ const App = () => {
 
   return (
     <ThemeProvider value={{ themeMode, darkTheme, lightTheme }}>
-      <div className="App">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/products" element={<AuthRoute><Search /> </AuthRoute>} />
-          <Route path="/cart" element={<AuthRoute><Checkout /></AuthRoute>} />
-          <Route path="/thanks" element={<AuthRoute><Thanks /></AuthRoute>} />
-          <Route path="/orders" element={<AuthRoute><Orders /></AuthRoute>} />
-          <Route path="/user-profile" element={<AuthRoute><UserProfile /></AuthRoute>} />
-        </Routes>
-      </div>
+      <Provider store={store}>
+        <div className="App">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/products" element={<AuthRoute><Search /> </AuthRoute>} />
+            <Route path="/cart" element={<AuthRoute><Checkout /></AuthRoute>} />
+            <Route path="/thanks" element={<AuthRoute><Thanks /></AuthRoute>} />
+            <Route path="/orders" element={<AuthRoute><Orders /></AuthRoute>} />
+            <Route path="/user-profile" element={<AuthRoute><UserProfile /></AuthRoute>} />
+          </Routes>
+        </div>
+      </Provider>
     </ThemeProvider>
   );
 };

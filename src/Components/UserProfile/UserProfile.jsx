@@ -8,8 +8,12 @@ import { useNavigate } from 'react-router';
 import Header from '../Header/Header';
 import useTheme from '../../contexts/theme';
 import Footer from '../Footer/Footer';
+import { useDispatch, useSelector } from 'react-redux';
+import { setProfileImage, selectProfileImage } from '../../redux/UserSlice';
 
 function UserProfile() {
+    const dispatch = useDispatch();
+    const userSelectedReduxImage = useSelector(selectProfileImage);
     const { themeMode } = useTheme();
     const navigate = useNavigate();
     const token = localStorage.getItem('token');
@@ -23,6 +27,11 @@ function UserProfile() {
     const [address, setAddress] = useState(localStorage.getItem('address') || '');
     const [editAddress, setEditAddress] = useState(null);
     const [balanceAmount, setBalanceAmount] = useState(localStorage.getItem('balance') || '');
+    const [userSelectedImage, setUserSelectedImage] = useState(userSelectedReduxImage || null);
+    const [editUserSelectedImage, setEditUserSelectedImage] = useState(null);
+    const fileInputRef = useRef(null);
+    const [userProfileImagePath, setUserProfileImagePath] = useState(null);
+
 
     useEffect(() => {
         fetchUserDetails();
@@ -32,10 +41,16 @@ function UserProfile() {
         setIsEditing(!isEditing);
     }
 
-    const saveUserEditHandler = () => {
+    const saveUserEditHandler = async () => {
         setName(editName || name);
         setAddress(editAddress || address);
-        editUserDetails();
+        setUserSelectedImage(editUserSelectedImage || userSelectedImage)
+        // dispatch(setProfileImage(editUserSelectedImage || userSelectedImage));
+        const response = await editUserDetails();
+        if (response) {
+            const imageUrl = `${config.fileEndpoint}/${response.data.profileImagePath}`;
+            dispatch(setProfileImage(imageUrl));
+        }
         cancelUserEditHandler();
     }
 
@@ -43,7 +58,23 @@ function UserProfile() {
         toggleEditing();
         setEditName(null);
         setEditAddress(null);
+        setEditUserSelectedImage(null);
     };
+
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            const fileName = file.name.toLowerCase();
+            if (!fileName.endsWith('.png') && !fileName.endsWith('.jpg') && !fileName.endsWith('.jpeg')) {
+                message.error('Please select a valid PNG, JPG, or JPEG image file.');
+                // Clear the file input
+                fileInputRef.current.value = null;
+                return;
+            }
+            setEditUserSelectedImage(file);
+            console.log(`user ki image file hai bhai: `, file);
+        }
+    }
 
     const logout = () => {
         for (const key in localStorage) {
@@ -78,11 +109,16 @@ function UserProfile() {
         let errored = false;
         try {
             setLoading(true);
+
+            const formData = new FormData();
+            formData.append('name', editName || name);
+            formData.append('address', editAddress || address);
+            if (editUserSelectedImage || userSelectedImage) {
+                formData.append('profileImage', editUserSelectedImage || userSelectedImage);
+            }
+
             response = await axios.patch(`${config.endpoint}/users/${userId}`,
-                {
-                    name: editName || name,
-                    address: editAddress || address,
-                },
+                formData,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`,
@@ -96,6 +132,9 @@ function UserProfile() {
             console.log(response.data)
             setName(response.data.name.split('')[0].toUpperCase() + response.data.name.slice(1));
             setAddress(response.data.address);
+            setUserProfileImagePath(response.data.profileImagePath);
+            dispatch(setProfileImage(`${config.fileEndpoint}/${response.data.profileImagePath}`));
+            setUserSelectedImage(`${config.fileEndpoint}/${response.data.profileImagePath}`)
             message.success("Updated successfully!")
             return response;
         }
@@ -119,6 +158,9 @@ function UserProfile() {
             console.log(response.data)
             setName(response.data.name.split('')[0].toUpperCase() + response.data.name.slice(1));
             setAddress(response.data.address);
+            setUserProfileImagePath(response.data.profileImagePath);
+            dispatch(setProfileImage(`${config.fileEndpoint}/${response.data.profileImagePath}`));
+            setUserSelectedImage(`${config.fileEndpoint}/${response.data.profileImagePath}`)
             return response;
         }
     }
@@ -131,17 +173,30 @@ function UserProfile() {
                         {loading ? <Skeleton.Avatar size="large" style={{ width: 100, height: 100 }} loading={loading} active avatar />
                             : (
                                 <>
-                                    <img
-                                        src="avatar.png"
-                                        alt="profile"
-                                        id="user-profile-image"
-                                        width="100"
-                                        height="100"
+                                    <input
+                                        type="file"
+                                        accept="image/*"
+                                        id="image-upload-input"
+                                        style={{ display: 'none' }}
+                                        onChange={(e) => handleImageChange(e)}
+                                        ref={fileInputRef}
                                     />
-                                    {isEditing && <Button type="primary" id="user-image-edit-button">
-                                        <EditOutlinedIcon id="user-image-edit-icon" style={{ fontSize: '18px' }} />
-                                        <span>Edit</span>
-                                    </Button>}</>
+                                    <label htmlFor="image-upload-input">
+                                        <div id="user-profile-image-container">
+                                            <img
+                                                src={editUserSelectedImage ? URL.createObjectURL(editUserSelectedImage) : (userSelectedImage || userProfileImagePath ? userSelectedImage : 'avatar.png')}
+                                                alt="profile"
+                                                id="user-profile-image"
+                                                width="100"
+                                                height="100"
+                                            />
+                                        </div>
+                                        {isEditing && <Button type="primary" id="user-image-edit-button" onClick={() => fileInputRef.current.click()}>
+                                            <EditOutlinedIcon id="user-image-edit-icon" style={{ fontSize: '18px' }} />
+                                            <span>Edit</span>
+                                        </Button>}
+                                    </label>
+                                </>
                             )}
                     </div>
 
@@ -219,4 +274,4 @@ function UserProfile() {
     )
 }
 
-export default UserProfile
+export default UserProfile;
