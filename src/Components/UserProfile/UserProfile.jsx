@@ -173,29 +173,32 @@ function UserProfile() {
                         {loading ? <Skeleton.Avatar size="large" style={{ width: 100, height: 100 }} loading={loading} active avatar />
                             : (
                                 <>
-                                    <input
-                                        type="file"
-                                        accept="image/*"
-                                        id="image-upload-input"
-                                        style={{ display: 'none' }}
-                                        onChange={(e) => handleImageChange(e)}
-                                        ref={fileInputRef}
-                                    />
-                                    <label htmlFor="image-upload-input">
-                                        <div id="user-profile-image-container">
-                                            <img
-                                                src={editUserSelectedImage ? URL.createObjectURL(editUserSelectedImage) : (userSelectedImage || userProfileImagePath ? userSelectedImage : 'avatar.png')}
-                                                alt="profile"
-                                                id="user-profile-image"
-                                                width="100"
-                                                height="100"
-                                            />
-                                        </div>
-                                        {isEditing && <Button type="primary" id="user-image-edit-button" onClick={() => fileInputRef.current.click()}>
-                                            <EditOutlinedIcon id="user-image-edit-icon" style={{ fontSize: '18px' }} />
-                                            <span>Edit</span>
-                                        </Button>}
-                                    </label>
+
+
+                                    <div id="user-profile-image-container">
+                                        <img
+                                            src={editUserSelectedImage ? URL.createObjectURL(editUserSelectedImage) : (userSelectedImage || userProfileImagePath ? userSelectedImage : 'avatar.png')}
+                                            alt="profile"
+                                            id="user-profile-image"
+                                            width="100"
+                                            height="100"
+                                        />
+                                    </div>
+                                    {isEditing && <>
+                                        <label htmlFor="image-upload-input">
+                                            <Button type="primary" id="user-image-edit-button" onClick={() => fileInputRef.current.click()}>
+                                                <input
+                                                    type="file"
+                                                    accept="image/*"
+                                                    id="image-upload-input"
+                                                    style={{ display: 'none' }}
+                                                    onChange={(e) => handleImageChange(e)}
+                                                    ref={fileInputRef}
+                                                />
+                                                <EditOutlinedIcon id="user-image-edit-icon" style={{ fontSize: '18px' }} />
+                                                <span>Edit</span>
+                                            </Button>
+                                        </label></>}
                                 </>
                             )}
                     </div>
