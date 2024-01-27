@@ -71,7 +71,7 @@ function UserOptionsDrawer(props) {
                         {/* Shows QBuyDot title image */}
                         <div className="user-title" >
                             <img
-                                src={userImage ? userImage : "avatar.png"}
+                                src={userImage?.includes('undefined') || !userImage ? "avatar.png" : userImage}
                                 alt="profile"
                                 id="user-option-profile-image"
                             ></img>
@@ -101,6 +101,13 @@ function UserOptionsDrawer(props) {
                             </div>
                         </ListItemButton>
                     </ListItem>
+                    <ListItem className="drawer-list-item" disablePadding onClick={() => navigate('/delete-account')} sx={{ backgroundColor: listBgColor('/delete-account'), }}>
+                        <ListItemButton>
+                            <div className="header-link">
+                                Delete Account
+                            </div>
+                        </ListItemButton>
+                    </ListItem>
                     <ListItem className="drawer-list-item" disablePadding onClick={logout} sx={{ backgroundColor: listBgColor('/logout'), }}>
                         <ListItemButton>
                             <div className="header-link">
@@ -127,7 +134,7 @@ function UserOptionsDrawer(props) {
                 // sx={{ display: { sm: "none" } }}
                 >
                     <img
-                        src={userImage ? userImage : "avatar.png"}
+                        src={userImage?.includes('undefined') || !userImage ? "avatar.png" : userImage}
                         alt="profile"
                         className="profile-image"
                         id="header-profile-image"

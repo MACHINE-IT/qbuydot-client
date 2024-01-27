@@ -1,0 +1,27 @@
+.flex-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    WIDTH: 75%;
+    margin: auto;
+    gap: 4em;
+}
+
+#account-delete-button {
+    background-color: #d93c3c !important;
+    color: white;
+}
+
+/* .account-delete-modal {
+    display: flex;
+    align-items: center;
+}
+
+.account-delete-modal-body {
+    margin-top: 4em;
+    background: white;
+    border: solid 1px grey;
+    padding: 2em !important;
+    border-radius: 10px;
+} */

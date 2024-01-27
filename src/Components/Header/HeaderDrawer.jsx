@@ -94,6 +94,13 @@ function HeaderDrawer(props) {
                                 </div>
                             </ListItemButton>
                         </ListItem>
+                        <ListItem className="drawer-list-item" disablePadding onClick={() => navigate('/delete-account')} sx={{ backgroundColor: listBgColor('/delete-account'), }}>
+                            <ListItemButton>
+                                <div className="header-link">
+                                    Delete Account
+                                </div>
+                            </ListItemButton>
+                        </ListItem>
                         <ListItem className="drawer-list-item" disablePadding onClick={logout} sx={{ backgroundColor: listBgColor('/logout'), }}>
                             <ListItemButton>
                                 <div className="header-link">
