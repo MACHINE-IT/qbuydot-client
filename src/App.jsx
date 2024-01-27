@@ -12,6 +12,7 @@ import { useEffect } from 'react'
 import AuthRoute from "./AuthRoute/AuthRoute";
 import { jwtDecode } from "jwt-decode";
 import UserProfile from "./Components/UserProfile/UserProfile";
+import UserAccountDelete from './Components/deleteUserAccount/DeleteUserAccount'
 import Orders from "./Components/Orders/Orders";
 import { Provider } from 'react-redux';
 import store from "./redux/Store";
@@ -69,6 +70,7 @@ const App = () => {
             <Route path="/thanks" element={<AuthRoute><Thanks /></AuthRoute>} />
             <Route path="/orders" element={<AuthRoute><Orders /></AuthRoute>} />
             <Route path="/user-profile" element={<AuthRoute><UserProfile /></AuthRoute>} />
+            <Route path="/delete-account" element={<AuthRoute><UserAccountDelete /></AuthRoute>} />
           </Routes>
         </div>
       </Provider>
